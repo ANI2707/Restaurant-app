@@ -29,6 +29,7 @@
   font-size: 24px;
   display: flex;
   list-style-type: none;
+ 
 }
 
 .nav-items > ul > li {
@@ -112,4 +113,18 @@
 
 .filter{
   display: flex;
+}
+
+.shimmer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.shimmer-card {
+  width: 200px;
+  height: 400px;
+  background-color:#f0f0f0;
+  margin: 20px;
+  
 }
