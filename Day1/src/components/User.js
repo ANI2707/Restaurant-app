@@ -6,7 +6,21 @@ const User = (props) =>{
 
     useEffect(()=>{
         //API Calls
+        const timer =setInterval(()=>{
+            console.log("Namaste React OP");
+        },1000);
+
+        console.log("useEffect");
+
+
+        //For unmounting / clearing the blunder
+        return ()=>{
+            clearInterval(timer)
+            console.log("useEffect Return");
+        }
     },[])
+
+    console.log("render");
     return (
         <div className="user-card">
             <h1>{count}</h1>
