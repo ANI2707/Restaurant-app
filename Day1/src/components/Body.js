@@ -3,6 +3,8 @@ import resList from "../utils/mockData";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
+
 
 const Body = () => {
   //local state variable - super powerful variaable
@@ -30,6 +32,13 @@ const Body = () => {
     setFilterOfRestaurants(responce?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     
   };
+
+  const onlineStatus=useOnlineStatus();
+  if(onlineStatus === false){
+    return(
+      <h1>you are offline</h1>
+    )
+  }
 
   //normal js variable
   // let listOfRestaurants=[];

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import {Header} from './components/Header';
 import Body from './components/Body';
@@ -7,7 +7,9 @@ import { createBrowserRouter , Outlet, RouterProvider } from 'react-router-dom';
 import About from './components/About';
 import Contact from './components/Contact';
 import Error from './components/Error';
+import { Suspense } from 'react';
 import RestaurantMenu from './components/RestaurantMenu';
+// import Grocery from './components/Grocery';
 
 
 //  const styleCard = {
@@ -44,6 +46,14 @@ import RestaurantMenu from './components/RestaurantMenu';
 // * Note: A Good Senior Frontend engineer is - who is a good UI Layer Engineer and a good Data Layer Engineer
 
 
+//chunking
+//code spittting
+//dynamic bundling
+//lazy loading
+//on demand loading
+//dynamic import
+
+const Grocery = lazy(()=> import ('./components/Grocery'))
 
 const AppLayout = () => {
   return (
@@ -62,10 +72,10 @@ const appRouter=createBrowserRouter([
     path:"/",
     element:<AppLayout/>,
     children:[
-      // {
-      //   path:'/',
-      //   element:<Body/>
-      // },
+      {
+        path:'/',
+        element:<Body/>
+      },
       {
         path:"/about",
         element:<About/>
@@ -73,6 +83,10 @@ const appRouter=createBrowserRouter([
       {
         path:"/contact",
         element:<Contact/>
+      },
+      {
+        path:"/grocery",
+        element:<Suspense fallback={<h2>Shimmer</h2>}><Grocery/></Suspense>
       },
       {
         path:'/restaurants/:resId',
