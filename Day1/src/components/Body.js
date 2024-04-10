@@ -25,7 +25,7 @@ const Body = () => {
 
     const responce = await data.json();
 
-    // console.log(responce);
+    console.log(responce);
     // console.log(responce.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
     //optional chaining
     setListOfRestaurants(responce?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
@@ -87,11 +87,11 @@ const Body = () => {
           <button>Search</button>
         </div> */}
 
-      <div className="filter">
-        <div className="search">
+      <div className="filter flex">
+        <div className="m-4 p-4">
           <input
             type="text"
-            className="search-box"
+            className="border border-solid border-black"
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
@@ -99,7 +99,7 @@ const Body = () => {
             }}
           />
           {/* filter the res cards */}
-          <button
+          <button className="px-4 py-2 bg-green-100 m-4 rounded-lg"
             onClick={() => {
               // Search text
               // console.log(searchText);
@@ -115,21 +115,24 @@ const Body = () => {
           </button>
         </div>
         {/* filter logic */}
-        <button
-          className="filter-btn"
-          onClick={() => {
-            const filterList = ListOfRestaurants.filter(
-              (res) => res.info.avgRating > 4
-            );
+        <div className="m-4 p-4 flex items-center">
+          <button
+            className="filter-btn px-4 py-2 bg-gray-100 m-4 rounded-lg "
+            onClick={() => {
+              const filterList = ListOfRestaurants.filter(
+                (res) => res.info.avgRating > 4
+              );
 
-            setFilterOfRestaurants(filterList);
-          }}
-        >
-          Top rated Restaurant
-        </button>
+              setFilterOfRestaurants(filterList);
+            }}
+          >
+            Top rated Restaurant
+          </button>
+        </div>
+       
       </div>
 
-      <div className="res-container">
+      <div className="flex flex-wrap">
         {/* <RestaurantCard resData={resList[0]} />
           <RestaurantCard resData={resList[1]} />
           <RestaurantCard resData={resList[2]} />
