@@ -52,5 +52,16 @@
  - useEffect()
 
 
+# Redux Toolkit
+ - Install @reduxjs/toolkit and react-redux
+
+ - Build our store
+ - Coonect our store to our app
+ - Slice (cartSlice)
+ - dispatch(action)
+ - selector
+ 
+
+
 
 

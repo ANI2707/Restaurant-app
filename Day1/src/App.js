@@ -1,103 +1,97 @@
-import React, { lazy } from 'react';
+import React, { lazy, Suspense } from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import {Header} from './components/Header';
+
+import Header from './components/Header';
 import Body from './components/Body';
-import Footer from './components/Footer';
-import { createBrowserRouter , Outlet, RouterProvider } from 'react-router-dom';
+// import Footer from './components/Footer';
 import About from './components/About';
 import Contact from './components/Contact';
 import Error from './components/Error';
-import { Suspense } from 'react';
 import RestaurantMenu from './components/RestaurantMenu';
-// import Grocery from './components/Grocery';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import UserContext from './utils/UserContext';
+import {Provider} from 'react-redux'
+import appStore from './utils/appStore';
+import Cart from './components/CartDisplay';
 
-
-//  const styleCard = {
-//   backgroundColor: '#f0f0f0',
-// };
-
-// * Props :
-
-// * prop -> is Just a JS Object
-
-// * Note: When you have to dainamically pass in a data to a component, you pass in prop
-
-// const RestaurantCard = (props) => {
-// console.log(props);
-
-// * Note We can also destructure props on the fly by wrapping them in between {}, this is like...
-
-// * const { resName, cuisine } = props;
-
-// const RestaurantCard = ({ resName, cuisine }) => {
-//   console.log({ resName, cuisine });
-
-
-
-
-// * not using keys (not acceptable) <<<< index as a key <<<<<<<<<< unique id (is the best  practice)
-
-
-
-// * What is Config-driven-UI -> A "config-driven UI" is a user interface that is built and configured using a declarative configuration file or data structure, rather than being hardcoded.
-
-// * Every company now-a-days follows these approach, because our Appications need to be Dynamic These Days
-
-// * Note: A Good Senior Frontend engineer is - who is a good UI Layer Engineer and a good Data Layer Engineer
-
-
-//chunking
-//code spittting
-//dynamic bundling
-//lazy loading
-//on demand loading
-//dynamic import
-
-const Grocery = lazy(()=> import ('./components/Grocery'))
+const Grocery = lazy(() => import('./components/Grocery'));
+const About = lazy(() => import('./components/About'));
 
 const AppLayout = () => {
-  return (
-    <div className="app">
-      <Header />
-      <Outlet/>
-      <Footer />
+  const [userName, setUserName] = useState();
 
-      
-    </div>
+  // Authentication
+  useEffect(() => {
+    // Make an API call and send username and password
+    const data = {
+      name: 'Aniket',
+    };
+    setUserName(data.name);
+  }, []);
+
+  return (
+    // // Default User
+    // <UserContext.Provider value={{ loggedInUser: userName }}>
+    //   {/* Vas K */}
+    //   <div className="app">
+    //     <UserContext.Provider value={{ loggedInUser: 'John Cena' }}>
+    //       {/* John Cena */}
+    //       <Header />
+    //     </UserContext.Provider>
+    //     <Outlet />
+    //   </div>
+    // </UserContext.Provider>
+    <Provider store={appStore}>
+      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+        <div className="app">
+          <Header />
+          <Outlet />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
-const appRouter=createBrowserRouter([
+const appRouter = createBrowserRouter([
   {
-    path:"/",
-    element:<AppLayout/>,
-    children:[
+    path: '/',
+    element: <AppLayout />,
+    children: [
       {
-        path:'/',
-        element:<Body/>
+        path: '/',
+        element: <Body />,
       },
       {
-        path:"/about",
-        element:<About/>
+        path: '/about',
+        element: <About />,
       },
       {
-        path:"/contact",
-        element:<Contact/>
+        path: '/contact',
+        element: <Contact />,
       },
       {
-        path:"/grocery",
-        element:<Suspense fallback={<h2>Shimmer</h2>}><Grocery/></Suspense>
+        path: '/grocery',
+        element: (
+          <Suspense fallback={<h1>Loading...</h1>}>
+            <Grocery />
+          </Suspense>
+        ),
       },
       {
-        path:'/restaurants/:resId',
-        element:<RestaurantMenu/>
+        path: '/restaurants/:resId',
+        element: <RestaurantMenu />,
       },
-
+      {
+        path: '/cart',
+        element: <Cart />,
+      },
     ],
-    errorElement:<Error/>
+    errorElement: <Error />,
   },
-  
-])
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<RouterProvider router={appRouter}/>);
+
+root.render(<RouterProvider router={appRouter} />);
