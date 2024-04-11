@@ -61,7 +61,20 @@
  - dispatch(action)
  - selector
  
+# Types of testing (developer)
+- Unit testing
+- Integration Testing
+- End to end testing (e2e testing)
 
+# setting up testing in are app
+- Install React Testing Library
+- Install Jest
+- Install Babel dependencies
+- configure Babel
+- configure parcel config file to disable default babel transpilation
+
+- Jest npx jest --init
+- Install jsdom library
 
 
 
