@@ -56,7 +56,7 @@
  - Install @reduxjs/toolkit and react-redux
 
  - Build our store
- - Coonect our store to our app
+ - Connect our store to our app
  - Slice (cartSlice)
  - dispatch(action)
  - selector
@@ -75,6 +75,29 @@
 
 - Jest npx jest --init
 - Install jsdom library
+
+
+- create folder __tests__ it contsins all test files
+- or you can write test inside  - header.test.js
+                                - header.test.ts
+                                - header.spec.js
+                                - header.spec.ts
+
+- __ is called dunder method
+
+- Install @babel/preset-react - to make JSX work in test cases
+- Include @babel/preset-react in babel.config.js
+- module.exports = {
+    presets: [
+        ["@babel/preset-env", { targets: { node: "current" } }],
+        ["@babel/preset-react",{runtime:"automatic"}],
+    ],
+    };
+
+
+- Install @testing-library/jest-dom
+   -npm i -D @testing-library/jest-dom  
+
 
 
 

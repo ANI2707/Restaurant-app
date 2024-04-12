@@ -3,8 +3,12 @@ import React from 'react';
 const Contact = () => {
   return (
     <div>
-      <h1>Contact Us</h1>
-      <h2>This is the Contact Page</h2>
+      <h1 className='font-bold text-3xl p-4 m-4'>Contact Us</h1>
+      <form action="">
+        <input type="text" className='border border-black p-3 m-2' placeholder='name'/>
+        <input type="text" className='border border-black p-3 m-2' placeholder='message'/>
+        <button className='border border-black bg-gray-200 rounded-lg p-3 m-2'>Submit</button>
+      </form>
     </div>
   );
 };
